@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelance Rate Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .calculator {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .input-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .slider-container {
+            margin: 20px 0;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            padding: 0;
+            cursor: pointer;
+        }
+        
+        .slider-value {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .results {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .result-item {
+            margin: 20px 0;
+        }
+        
+        .result-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        
+        .result-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 20px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .info {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 0.95em;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 600px) {
+            .input-group {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .calculator {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💰 Freelance Rate Calculator</h1>
+            <p class="tagline">Stop undercharging. Know your worth.</p>
+        </header>
+        
+        <div class="calculator">
+            <form id="rateForm">
+                <div class="input-group">
+                    <div class="form-section">
+                        <label for="experience">Years of Experience</label>
+                        <select id="experience" required>
+                            <option value="">Select...</option>
+                            <option value="1">0-1 year (Beginner)</option>
+                            <option value="5">1-3 years (Growing)</option>
+                            <option value="10">3-5 years (Intermediate)</option>
+                            <option value="20">5-10 years (Advanced)</option>
+                            <option value="30">10+ years (Expert)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-section">
+                        <label for="field">Field/Industry</label>
+                        <select id="field" required>
+                            <option value="">Select...</option>
+                            <option value="1">Content Writing</option>
+                            <option value="1.2">Social Media Management</option>
+                            <option value="1.3">Graphic Design</option>
+                            <option value="1.4">Web Design</option>
+                            <option value="1.5">Web Development</option>
+                            <option value="1.3">Video Editing</option>
+                            <option value="1.2">Virtual Assistance</option>
+                            <option value="1.6">Data Analysis</option>
+                            <option value="1.7">App Development</option>
+                            <option value="1.5">Consulting</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <label for="expenses">Monthly Business Expenses ($)</label>
+                    <input type="number" id="expenses" value="500" min="0" step="100">
+                </div>
+                
+                <div class="form-section">
+                    <label for="hours">Billable Hours Per Week</label>
+                    <input type="number" id="hours" value="30" min="1" max="60">
+                </div>
+                
+                <div class="slider-container">
+                    <label for="location">Location Tier (Adjusts for cost of living)</label>
+                    <input type="range" id="location" min="0.8" max="1.5" step="0.1" value="1">
+                    <div class="slider-value">
+                        <span id="locationLabel">Tier 1 (Global Average)</span>
+                    </div>
+                </div>
+                
+                <button type="button" onclick="calculateRate()">Calculate My Rate</button>
+            </form>
+            
+            <div id="results" style="display:none;">
+                <div class="results">
+                    <div class="result-item">
+                        <div class="result-label">RECOMMENDED HOURLY RATE</div>
+                        <div class="result-value">$<span id="hourlyRate">0</span>/hr</div>
+                    </div>
+                    
+                    <div class="result-item">
+                        <div class="result-label">Monthly Income (4 weeks)</div>
+                        <div class="result-value">$<span id="monthlyIncome">0</span></div>
+                    </div>
+                    
+                    <div class="result-item">
+                        <div class="result-label">Annual Income</div>
+                        <div class="result-value">$<span id="annualIncome">0</span></div>
+                    </div>
+                </div>
+                
+                <div class="info">
+                    <strong>💡 Pro Tips:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Start at this rate minimum — you can always increase later</li>
+                        <li>Add 20-30% for rush jobs or specialized expertise</li>
+                        <li>Project-based work? Multiply hourly rate × estimated hours + 15% buffer</li>
+                        <li>Increase your rate by 10-15% every year of experience</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('location').addEventListener('change', function() {
+            const value = parseFloat(this.value);
+            let label = 'Tier 1 (Global Average)';
+            if (value < 0.9) label = 'Tier 1 (Lower Cost - E.g., Asia, Latin America)';
+            if (value >= 0.9 && value < 1.1) label = 'Tier 1 (Global Average)';
+            if (value >= 1.1 && value < 1.3) label = 'Tier 2 (Higher Cost - E.g., Western Europe)';
+            if (value >= 1.3) label = 'Tier 3 (Highest Cost - E.g., Silicon Valley, NYC)';
+            document.getElementById('locationLabel').textContent = label;
+        });
+        
+        function calculateRate() {
+            const experience = parseFloat(document.getElementById('experience').value);
+            const field = parseFloat(document.getElementById('field').value);
+            const expenses = parseFloat(document.getElementById('expenses').value);
+            const hours = parseFloat(document.getElementById('hours').value);
+            const location = parseFloat(document.getElementById('location').value);
+            
+            if (!experience || !field) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // Base rate calculation
+            const baseRate = 25; // Starting point
+            const experienceMultiplier = 1 + (experience / 100);
+            const fieldMultiplier = field;
+            const expensePerHour = (expenses / 4) / hours;
+            
+            let hourlyRate = baseRate * experienceMultiplier * fieldMultiplier + (expensePerHour * 1.5);
+            hourlyRate = hourlyRate * location;
+            hourlyRate = Math.round(hourlyRate);
+            
+            const monthlyIncome = Math.round(hourlyRate * hours * 4.33);
+            const annualIncome = Math.round(monthlyIncome * 12);
+            
+            document.getElementById('hourlyRate').textContent = hourlyRate;
+            document.getElementById('monthlyIncome').textContent = monthlyIncome.toLocaleString();
+            document.getElementById('annualIncome').textContent = annualIncome.toLocaleString();
+            document.getElementById('results').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

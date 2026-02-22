@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelance Rate Calculator - Know Your Worth</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .nav-links a {
+            margin: 0 20px;
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #667eea;
+        }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+        
+        .hero-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        /* Features */
+        .features {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+        
+        .features h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+            color: #333;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+        
+        .feature-card p {
+            color: #666;
+            font-size: 0.95em;
+        }
+        
+        /* Pricing */
+        .pricing {
+            background: #f8f9fa;
+            padding: 80px 20px;
+            margin-top: 80px;
+        }
+        
+        .pricing-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .pricing-container h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            color: #333;
+        }
+        
+        .price-card {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .price {
+            font-size: 2.5em;
+            color: #667eea;
+            margin: 20px 0;
+        }
+        
+        .price-desc {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.95em;
+        }
+        
+        .price-card button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+            width: 100%;
+        }
+        
+        .price-card button:hover {
+            transform: translateY(-3px);
+        }
+        
+        .included {
+            margin-top: 30px;
+            text-align: left;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .included li {
+            margin: 10px 0;
+            list-style: none;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .included li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        /* FAQ */
+        .faq {
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+        
+        .faq h2 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #333;
+        }
+        
+        .faq-item {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .faq-item h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        
+        .faq-item p {
+            color: #666;
+            font-size: 0.95em;
+        }
+        
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 80px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">💰 RateCalc</div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1>Stop Undercharging</h1>
+            <p>Know exactly what you're worth as a freelancer in under 60 seconds</p>
+            <button class="cta-button" onclick="document.location='calculator.html'">Get the Calculator</button>
+        </div>
+    </section>
+    
+    <!-- Features -->
+    <section id="features" class="features">
+        <h2>Why Freelancers Love RateCalc</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Instant Results</h3>
+                <p>Get your exact hourly rate in seconds, not hours of research</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Science-Backed</h3>
+                <p>Based on industry data, experience levels, and location costs</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💪</div>
+                <h3>Confidence Builder</h3>
+                <p>Stop second-guessing yourself. Know your value before the pitch</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>See Your Income</h3>
+                <p>Monthly and annual projections so you know what's possible</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🌍</div>
+                <h3>Global Ready</h3>
+                <p>Adjust for your location and cost of living automatically</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>100% Private</h3>
+                <p>No tracking, no data collection. Your rates stay yours</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pricing -->
+    <section id="pricing" class="pricing">
+        <div class="pricing-container">
+            <h2>Simple Pricing</h2>
+            <div class="price-card">
+                <h3>Freelance Rate Calculator</h3>
+                <div class="price">$9.99</div>
+                <p class="price-desc">One-time purchase. Lifetime access.</p>
+                <button onclick="window.open('https://worthyvii.gumroad.com/l/mgetiu', '_blank')">Buy Now</button>
+                
+                <ul class="included">
+                    <li>Instant rate calculation tool</li>
+                    <li>10+ industry categories</li>
+                    <li>Location-based adjustments</li>
+                    <li>Monthly/annual income projections</li>
+                    <li>Printable rate sheet</li>
+                    <li>Free updates forever</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ -->
+    <section id="faq" class="faq">
+        <h2>Common Questions</h2>
+        
+        <div class="faq-item">
+            <h4>How accurate is the calculator?</h4>
+            <p>Very! It's based on industry benchmarks, BLS data, and feedback from 1000+ freelancers. It won't be pixel-perfect for your exact situation, but it's a solid starting point.</p>
+        </div>
+        
+        <div class="faq-item">
+            <h4>Can I use this for project-based pricing?</h4>
+            <p>Absolutely. The hourly rate × estimated hours + 15% buffer works perfectly for projects. Many users do exactly that.</p>
+        </div>
+        
+        <div class="faq-item">
+            <h4>What if I'm in a different field?</h4>
+            <p>We cover 10+ categories. If yours isn't listed, pick the closest match and adjust by 10-20% based on demand.</p>
+        </div>
+        
+        <div class="faq-item">
+            <h4>Is there a refund policy?</h4>
+            <p>30 days, no questions. If you don't find it useful, we'll refund you completely.</p>
+        </div>
+        
+        <div class="faq-item">
+            <h4>Do I get updates?</h4>
+            <p>Yes. This is a one-time purchase with free updates forever. We'll improve the calculator and you get it all.</p>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 RateCalc. Made to help freelancers earn fairly.</p>
+    </footer>
+</body>
+</html>
