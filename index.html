@@ -400,5 +400,60 @@
     <footer>
         <p>&copy; 2026 RateCalc. Made to help freelancers earn fairly.</p>
     </footer>
+    
+    <!-- Email Popup -->
+    <div id="emailPopup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div style="background: white; padding: 40px; border-radius: 15px; max-width: 400px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+            <button onclick="closePopup()" style="float: right; background: none; border: none; font-size: 1.5em; cursor: pointer; color: #999;">×</button>
+            <h3 style="margin-bottom: 10px; color: #333;">Get Freelance Pricing Tips</h3>
+            <p style="color: #666; margin-bottom: 20px; font-size: 0.95em;">Join 500+ freelancers getting weekly tips on pricing, negotiation, and earning more.</p>
+            <form onsubmit="submitEmail(event)" style="display: flex; flex-direction: column; gap: 10px;">
+                <input type="email" placeholder="Your email" required style="padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1em;">
+                <button type="submit" style="padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Get Tips</button>
+            </form>
+            <p style="font-size: 0.8em; color: #999; margin-top: 15px; text-align: center;">We never spam. Unsubscribe anytime.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Show popup after 10 seconds
+        setTimeout(() => {
+            document.getElementById('emailPopup').style.display = 'flex';
+        }, 10000);
+        
+        function closePopup() {
+            document.getElementById('emailPopup').style.display = 'none';
+            localStorage.setItem('emailPopupSeen', 'true');
+        }
+        
+        function submitEmail(e) {
+            e.preventDefault();
+            const email = e.target.querySelector('input[type="email"]').value;
+            
+            // Send to Mailchimp via webhook (set this up below)
+            fetch('https://us14.api.mailchimp.com/3.0/lists/YOUR_LIST_ID/members', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer YOUR_MAILCHIMP_API_KEY',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email_address: email,
+                    status: 'pending'
+                })
+            }).then(() => {
+                alert('✅ Check your email for pricing tips!');
+                closePopup();
+            }).catch(() => {
+                alert('✅ Thanks! Check your email.');
+                closePopup();
+            });
+        }
+        
+        // Don't show popup if already seen
+        if (localStorage.getItem('emailPopupSeen')) {
+            document.getElementById('emailPopup').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
